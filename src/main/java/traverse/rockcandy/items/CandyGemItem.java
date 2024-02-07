@@ -15,8 +15,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -67,8 +67,8 @@ public class CandyGemItem extends BaseUsableGem {
 			for (int i = 0; player.getInventory().getContainerSize() > i; ++i) {
 				ItemStack stack = player.getInventory().getItem(i);
 				if (stack.getItem() != this) continue;
-				if (stack.getItem() instanceof BaseUsableGem && isActive(stack)) {
-					absorbSugar(stack, player.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(null));
+				if (isActive(stack)) {
+					absorbSugar(stack, player.getCapability(Capabilities.ItemHandler.ENTITY));
 				}
 			}
 			if (isAutoFeeding(itemStack)) {

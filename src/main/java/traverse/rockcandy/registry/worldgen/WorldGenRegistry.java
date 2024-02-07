@@ -23,9 +23,9 @@ import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
-import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.common.world.ForgeBiomeModifiers;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.world.BiomeModifier;
+import net.neoforged.neoforge.common.world.BiomeModifiers;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import traverse.rockcandy.RockCandy;
 import traverse.rockcandy.registry.ModBlocks;
 
@@ -49,7 +49,7 @@ public class WorldGenRegistry {
 				InSquarePlacement.spread(), BiomeFilter.biome());
 	}
 
-	protected static final ResourceKey<BiomeModifier> ADD_ORE_CANDY = ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS,
+	protected static final ResourceKey<BiomeModifier> ADD_ORE_CANDY = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS,
 			new ResourceLocation(RockCandy.MODID, "add_ore_candy"));
 
 	public static void modifierBootstrap(BootstapContext<BiomeModifier> context) {
@@ -58,7 +58,7 @@ public class WorldGenRegistry {
 
 		HolderSet.Named<Biome> overworldHolder = biomeGetter.getOrThrow(BiomeTags.IS_OVERWORLD);
 
-		context.register(ADD_ORE_CANDY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+		context.register(ADD_ORE_CANDY, new BiomeModifiers.AddFeaturesBiomeModifier(
 				overworldHolder,
 				HolderSet.direct(placedGetter.getOrThrow(ORE_CANDY_PLACED)),
 				GenerationStep.Decoration.UNDERGROUND_ORES

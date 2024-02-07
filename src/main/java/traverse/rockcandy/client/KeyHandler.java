@@ -6,17 +6,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 import traverse.rockcandy.RockCandy;
 import traverse.rockcandy.items.CandyGemItem;
-import traverse.rockcandy.network.PacketAutoFeed;
-import traverse.rockcandy.network.RockCandyPacketHandler;
+import traverse.rockcandy.network.AutoFeedPayload;
 import traverse.rockcandy.registry.ModItems;
 
-import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.FORGE;
+import static net.neoforged.fml.common.Mod.EventBusSubscriber.Bus.FORGE;
 
 
 @Mod.EventBusSubscriber(bus = FORGE, modid = RockCandy.MODID)
@@ -32,7 +32,7 @@ public class KeyHandler {
 		int slot = findItem(ModItems.CANDY_GEM.get(), player);
 		ItemStack stack = player.getInventory().getItem(Math.max(slot, 0));
 		if (autoFeedKey != null && autoFeedKey.consumeClick() && !stack.isEmpty()) {
-			RockCandyPacketHandler.INSTANCE.sendToServer(new PacketAutoFeed(!CandyGemItem.isAutoFeeding(stack), slot));
+			PacketDistributor.SERVER.noArg().send(new AutoFeedPayload(!CandyGemItem.isAutoFeeding(stack), slot));
 			player.displayClientMessage(Component.literal("Mode Changed"), true);
 		}
 	}

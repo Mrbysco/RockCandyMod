@@ -14,7 +14,6 @@ import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraftforge.registries.RegistryObject;
 import traverse.rockcandy.registry.ModBlocks;
 import traverse.rockcandy.registry.ModItems;
 
@@ -54,7 +53,7 @@ public class ModLootProvider extends LootTableProvider {
 
 		@Override
 		protected Iterable<Block> getKnownBlocks() {
-			return (Iterable<Block>) ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
+			return (Iterable<Block>) ModBlocks.BLOCKS.getEntries().stream().map(holder -> (Block)holder.value())::iterator;
 		}
 	}
 

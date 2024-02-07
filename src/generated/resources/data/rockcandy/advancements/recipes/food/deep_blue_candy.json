@@ -58,17 +58,16 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_harden_candy",
       "has_blank_candy",
       "has_nether_wart",
-      "has_prismarine_shard",
-      "has_the_recipe"
+      "has_prismarine_shard"
     ]
   ],
   "rewards": {
     "recipes": [
       "rockcandy:deep_blue_candy"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

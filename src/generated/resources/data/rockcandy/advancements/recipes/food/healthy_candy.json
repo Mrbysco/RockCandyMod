@@ -58,17 +58,16 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_harden_candy",
       "has_blank_candy",
       "has_nether_wart",
-      "has_ghast_tear",
-      "has_the_recipe"
+      "has_ghast_tear"
     ]
   ],
   "rewards": {
     "recipes": [
       "rockcandy:healthy_candy"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

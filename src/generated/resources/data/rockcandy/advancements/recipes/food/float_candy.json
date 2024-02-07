@@ -58,17 +58,16 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_harden_candy",
       "has_blank_candy",
       "has_nether_wart",
-      "has_shulker_shell",
-      "has_the_recipe"
+      "has_shulker_shell"
     ]
   ],
   "rewards": {
     "recipes": [
       "rockcandy:float_candy"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

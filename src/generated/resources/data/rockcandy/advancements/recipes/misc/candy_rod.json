@@ -22,14 +22,13 @@
   },
   "requirements": [
     [
-      "has_candy_core",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_candy_core"
     ]
   ],
   "rewards": {
     "recipes": [
       "rockcandy:candy_rod"
     ]
-  },
-  "sends_telemetry_event": true
+  }
 }

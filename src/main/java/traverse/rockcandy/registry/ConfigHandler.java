@@ -1,19 +1,13 @@
 package traverse.rockcandy.registry;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.common.Mod;
-import traverse.rockcandy.RockCandy;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
-import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
-
-@Mod.EventBusSubscriber(modid = RockCandy.MODID, bus = MOD)
 public class ConfigHandler {
-
 	public static class General {
 
-		public final ForgeConfigSpec.ConfigValue<Integer> changeTime;
+		public final ModConfigSpec.ConfigValue<Integer> changeTime;
 
-		General(ForgeConfigSpec.Builder builder) {
+		General(ModConfigSpec.Builder builder) {
 			builder.push("General");
 			changeTime = builder
 					.comment("Time to change Harden Candy to Blank Candy in seconds.")
@@ -22,7 +16,7 @@ public class ConfigHandler {
 		}
 	}
 
-	private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+	private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 	public static final General general = new General(BUILDER);
-	public static final ForgeConfigSpec configSpec = BUILDER.build();
+	public static final ModConfigSpec configSpec = BUILDER.build();
 }

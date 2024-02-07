@@ -58,17 +58,16 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_harden_candy",
       "has_blank_candy",
       "has_nether_wart",
-      "has_golden_carrot",
-      "has_the_recipe"
+      "has_golden_carrot"
     ]
   ],
   "rewards": {
     "recipes": [
       "rockcandy:glow_candy"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

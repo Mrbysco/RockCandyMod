@@ -22,14 +22,13 @@
   },
   "requirements": [
     [
-      "has_raw_candy",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_raw_candy"
     ]
   ],
   "rewards": {
     "recipes": [
       "rockcandy:harden_rock_candy"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

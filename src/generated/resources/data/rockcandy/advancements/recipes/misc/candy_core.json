@@ -44,16 +44,15 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_harden_candy",
       "has_diamond",
-      "has_sugar",
-      "has_the_recipe"
+      "has_sugar"
     ]
   ],
   "rewards": {
     "recipes": [
       "rockcandy:candy_core"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

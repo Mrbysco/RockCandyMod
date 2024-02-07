@@ -42,16 +42,15 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_harden_candy",
       "has_iron_ingot",
-      "has_chest",
-      "has_the_recipe"
+      "has_chest"
     ]
   ],
   "rewards": {
     "recipes": [
       "rockcandy:candy_dispenser"
     ]
-  },
-  "sends_telemetry_event": true
+  }
 }

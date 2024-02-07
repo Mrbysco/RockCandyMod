@@ -34,15 +34,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_harden_candy",
-      "has_candy_rod",
-      "has_the_recipe"
+      "has_candy_rod"
     ]
   ],
   "rewards": {
     "recipes": [
       "rockcandy:candy_club"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
