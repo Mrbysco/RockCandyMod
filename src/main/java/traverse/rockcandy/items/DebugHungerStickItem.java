@@ -28,8 +28,8 @@ public class DebugHungerStickItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
 		tooltip.add(Component.literal(ChatFormatting.DARK_RED + "DEBUG ITEM -- GIVES PLAYER ZERO HUNGER"));
-		super.appendHoverText(stack, level, tooltip, flagIn);
+		super.appendHoverText(stack, context, tooltip, tooltipFlag);
 	}
 }

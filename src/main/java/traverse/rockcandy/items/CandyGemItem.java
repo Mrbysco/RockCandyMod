@@ -1,7 +1,6 @@
 package traverse.rockcandy.items;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -17,9 +16,9 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
+import traverse.rockcandy.registry.ModDataComponents;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class CandyGemItem extends BaseUsableGem {
@@ -33,7 +32,7 @@ public class CandyGemItem extends BaseUsableGem {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity livingEntity) {
 		return 4;
 	}
 
@@ -51,9 +50,7 @@ public class CandyGemItem extends BaseUsableGem {
 		if (entityLiving instanceof Player player) {
 			player.getFoodData().eat(5, 0.6F);
 			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 0.5F, level.random.nextFloat() * 0.1F + 0.9F);
-			stack.hurtAndBreak(1, player, (entity) -> {
-				entity.broadcastBreakEvent(entity.getUsedItemHand());
-			});
+			stack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(stack));
 		}
 		return stack;
 	}
@@ -75,9 +72,7 @@ public class CandyGemItem extends BaseUsableGem {
 				if (player.canEat(false)) {
 					if (itemStack.isDamageableItem() && itemStack.getMaxDamage() - itemStack.getDamageValue() > 1) {
 						player.getFoodData().eat(5, 0.6F);
-						itemStack.hurtAndBreak(1, player, playerEntity -> {
-							playerEntity.broadcastBreakEvent(playerEntity.getUsedItemHand());
-						});
+						itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(itemStack));
 					}
 				}
 			}
@@ -103,12 +98,7 @@ public class CandyGemItem extends BaseUsableGem {
 	}
 
 	public static boolean isAutoFeeding(@Nonnull ItemStack stack) {
-		CompoundTag compound = stack.getTag();
-
-		if (compound == null) {
-			return false;
-		}
-		return compound.getBoolean("autoFeed");
+		return stack.getOrDefault(ModDataComponents.AUTO_FEED, false);
 	}
 
  /* @Override
@@ -120,13 +110,13 @@ public class CandyGemItem extends BaseUsableGem {
   } */
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
 		tooltip.add(Component.literal(stack.getMaxDamage() - stack.getItem().getDamage(stack) + "/" + stack.getMaxDamage() + " Charges"));
 		if (isAutoFeeding(stack)) {
 			tooltip.add(Component.literal(ChatFormatting.YELLOW + "Auto Feed: " + ChatFormatting.GREEN + "Enabled"));
 		} else {
 			tooltip.add(Component.literal(ChatFormatting.YELLOW + "Auto Feed: " + ChatFormatting.RED + "Disabled"));
 		}
-		super.appendHoverText(stack, level, tooltip, flagIn);
+		super.appendHoverText(stack, context, tooltip, tooltipFlag);
 	}
 }

@@ -13,6 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import traverse.rockcandy.registry.ModDataComponents;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -41,12 +42,7 @@ public class BaseUsableGem extends Item {
 	}
 
 	public boolean isActive(@Nonnull ItemStack stack) {
-		CompoundTag compound = stack.getTag();
-
-		if (compound == null) {
-			return false;
-		}
-		return compound.getBoolean("isActive");
+		return stack.getOrDefault(ModDataComponents.ACTIVE, false);
 	}
 
 	private void toggleActive(@Nonnull ItemStack stack) {
@@ -55,15 +51,7 @@ public class BaseUsableGem extends Item {
 	}
 
 	private void setActive(@Nonnull ItemStack stack, boolean bool) {
-		CompoundTag compound = stack.getTag();
-
-
-		if (compound == null) {
-			compound = new CompoundTag();
-			stack.setTag(compound);
-
-		}
-		compound.putBoolean("isActive", bool);
+		stack.set(ModDataComponents.ACTIVE, bool);
 	}
 /*
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
@@ -83,13 +71,13 @@ public class BaseUsableGem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
 		if (isActive(stack)) {
 			tooltip.add(Component.literal(ChatFormatting.BLUE + "Is Active: " + ChatFormatting.GREEN + "True"));
 		} else {
 			tooltip.add(Component.literal(ChatFormatting.BLUE + "Is Active: " + ChatFormatting.RED + "False"));
 		}
-		super.appendHoverText(stack, level, tooltip, flagIn);
+		super.appendHoverText(stack, context, tooltip, tooltipFlag);
 	}
 }
 

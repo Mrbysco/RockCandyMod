@@ -1,5 +1,7 @@
 package traverse.rockcandy.datagen.data;
 
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -7,7 +9,6 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -15,13 +16,15 @@ import net.neoforged.neoforge.common.Tags;
 import traverse.rockcandy.RockCandy;
 import traverse.rockcandy.registry.ModItems;
 
+import java.util.concurrent.CompletableFuture;
+
 public class ModRecipeProvider extends RecipeProvider {
-	public ModRecipeProvider(PackOutput packOutput) {
-		super(packOutput);
+	public ModRecipeProvider(PackOutput packOutput, CompletableFuture<Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	@Override
-	protected void buildRecipes(RecipeOutput output) {
+	protected void buildRecipes(RecipeOutput output, HolderLookup.Provider provider) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.CANDY_BLOCK.get())
 				.pattern("HHH")
 				.pattern("HHH")
@@ -182,7 +185,7 @@ public class ModRecipeProvider extends RecipeProvider {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.RAW_CANDY.get(), 9)
 				.requires(ModItems.CANDY_BLOCK.get())
 				.unlockedBy("has_harden_candy", has(ModItems.HARDEN_CANDY.get()))
-				.save(output, new ResourceLocation(RockCandy.MODID, "raw_rock_candy2"));
+				.save(output, RockCandy.modLoc("raw_rock_candy2"));
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.ROCK_CANDY.get())
 				.requires(ModItems.RAW_CANDY.get())

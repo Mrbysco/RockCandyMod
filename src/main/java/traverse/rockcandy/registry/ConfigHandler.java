@@ -8,7 +8,8 @@ public class ConfigHandler {
 		public final ModConfigSpec.ConfigValue<Integer> changeTime;
 
 		General(ModConfigSpec.Builder builder) {
-			builder.push("General");
+			builder.comment("General settings")
+					.push("general");
 			changeTime = builder
 					.comment("Time to change Harden Candy to Blank Candy in seconds.")
 					.define("changeTime", 2);

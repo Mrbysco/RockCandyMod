@@ -1,19 +1,10 @@
 package traverse.rockcandy.registry;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.SimpleTier;
-import net.neoforged.neoforge.common.TierSortingRegistry;
-import traverse.rockcandy.RockCandy;
-
-import java.util.List;
 
 public class ModTiers {
-	public static final Tier CANDY = TierSortingRegistry.registerTier(
-			new SimpleTier(3, 1041, 8.0F, 3.0F, 10,
-					ModTags.NEEDS_CANDY_TOOL,
-					() -> Ingredient.of(ModItems.HARDEN_CANDY.get())),
-			new ResourceLocation(RockCandy.MODID, "candy"), List.of(Tiers.DIAMOND), List.of(Tiers.NETHERITE));
+	public static final Tier CANDY = new SimpleTier(ModTags.INCORRECT_FOR_CANDY, 1041, 8.0F, 3.0F, 10,
+			() -> Ingredient.of(ModItems.HARDEN_CANDY.get()));
 }

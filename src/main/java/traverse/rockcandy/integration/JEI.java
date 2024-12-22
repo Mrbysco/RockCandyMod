@@ -12,10 +12,11 @@ import traverse.rockcandy.registry.ModItems;
 
 @JeiPlugin
 public class JEI implements IModPlugin {
+	public static final ResourceLocation PLUGIN_UID = RockCandy.modLoc("jei_plugin");
 
 	@Override
 	public ResourceLocation getPluginUid() {
-		return new ResourceLocation(RockCandy.MODID);
+		return PLUGIN_UID;
 	}
 
 	@Override

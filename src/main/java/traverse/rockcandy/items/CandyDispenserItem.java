@@ -16,7 +16,6 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import traverse.rockcandy.registry.ModItems;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class CandyDispenserItem extends BaseUsableGem {
@@ -30,7 +29,7 @@ public class CandyDispenserItem extends BaseUsableGem {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity livingEntity) {
 		return 8;
 	}
 
@@ -48,9 +47,7 @@ public class CandyDispenserItem extends BaseUsableGem {
 		if (entityLiving instanceof Player player) {
 			player.getFoodData().eat(3, 0.3F);
 			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 0.5F, level.random.nextFloat() * 0.1F + 0.9F);
-			stack.hurtAndBreak(1, player, (entity) -> {
-				player.broadcastBreakEvent(entity.getUsedItemHand());
-			});
+			stack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(stack));
 		}
 		return stack;
 	}
@@ -98,8 +95,8 @@ public class CandyDispenserItem extends BaseUsableGem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
 		tooltip.add(Component.literal(stack.getMaxDamage() - stack.getItem().getDamage(stack) + "/" + stack.getMaxDamage() + " Charges"));
-		super.appendHoverText(stack, level, tooltip, flagIn);
+		super.appendHoverText(stack, context, tooltip, tooltipFlag);
 	}
 }

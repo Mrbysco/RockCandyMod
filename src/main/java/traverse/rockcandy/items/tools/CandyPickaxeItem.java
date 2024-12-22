@@ -14,6 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
@@ -24,7 +25,9 @@ import java.util.List;
 
 public class CandyPickaxeItem extends PickaxeItem {
 	public CandyPickaxeItem(Properties properties) {
-		super(ModTiers.CANDY, 1, -2.6F, properties);
+		super(ModTiers.CANDY, properties
+				.attributes(PickaxeItem.createAttributes(ModTiers.CANDY, 1, -2.6F))
+		);
 	}
 
 	@Override
@@ -33,7 +36,7 @@ public class CandyPickaxeItem extends PickaxeItem {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 16;
 	}
 
@@ -54,20 +57,18 @@ public class CandyPickaxeItem extends PickaxeItem {
 		if (livingEntity instanceof Player player) {
 			player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 2 * 30 * 20, 1));
 			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 0.5F, level.random.nextFloat() * 0.1F + 0.9F);
-			stack.hurtAndBreak(25, player, player1 -> {
-				player1.broadcastBreakEvent(player1.getUsedItemHand());
-			});
+			stack.hurtAndBreak(25, player, player.getEquipmentSlotForItem(stack));
 		}
 		return stack;
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
 		if (!Screen.hasShiftDown()) {
 			tooltip.add(Component.literal(ChatFormatting.YELLOW + "Press Shift for more info"));
 		} else {
 			tooltip.add(Component.literal(ChatFormatting.BLUE + "Shift-Right Click: " + ChatFormatting.RED + "Haste Buff"));
 		}
-		super.appendHoverText(stack, level, tooltip, flagIn);
+		super.appendHoverText(stack, context, tooltip, tooltipFlag);
 	}
 }
